@@ -4,9 +4,8 @@
 # Date: Jan. 11, 2023
 # This prints "Hello, World!" to the screen
 
-import ugame
 import stage
-
+import ugame
 
 def game_scene():
 
