@@ -10,6 +10,48 @@ import ugame
 
 import constants
 
+def menu_scene():
+
+    # Load the background and sprite image banks
+    image_bank_background = stage.Bank.from_bmp16("space_aliens_background.bmp")
+
+
+    # add text objects
+    text = []
+    text1 = stage.Text(width=29, height=12, font=None, palette=constants.RED_PALETTE, buffer=None) 
+    text1.move(20, 10)
+    text1.text("DVD Project Blue")
+    text.append(text1)
+
+    text2 = stage.Text(width=29, height=12, font=None, palette=constants.RED_PALETTE, buffer=None) 
+    text2.move(40, 110)
+    text2.text("PRESS START")
+    text.append(text2)
+
+    # Create the background grid using the image and set the size to 10x8 tiles
+    background = stage.Grid(image_bank_background, constants.SCREEN_GRID_X, constants.SCREEN_GRID_Y)
+
+    # Create a "Stage" object to manage the game graphics and input
+    # Set the frame rate to 60fps
+    game = stage.Stage(ugame.display, constants.FP5)
+
+    # Add the background and ship to the layers list
+    game.layers = text + [background]
+
+    # Draw the background on the screen
+    game.render_block()
+
+    # Repeat forever
+    while True:
+        # Gets user input
+        keys = ugame.buttons.get_pressed()
+
+        if keys & ugame.K_START != 0:
+            game_scene()
+
+        # Redraw sprites
+        game.tick()
+
 def game_scene():
 
     # Load the background and sprite image banks
@@ -101,5 +143,6 @@ def game_scene():
         game.render_sprites([ship] + [alien])
         game.tick()
 
+
 if __name__ == "__main__":
-    game_scene()
+    menu_scene()
